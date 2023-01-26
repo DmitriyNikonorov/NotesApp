@@ -33,13 +33,13 @@ struct MainScreenModel {
     let addButtonImage: UIImage
     let addButtonImageColor: UIColor
 
+    let settingButtonImage: UIImage
+    let settingButtonImageColor: UIColor
+
     struct Model: ModelProtocol {
         var noteCount: UInt? = nil
         let mainBackgroundColor: UIColor
         let noteBackground: UIColor
-
-
-
     }
 
     var model: Model
@@ -67,6 +67,9 @@ struct MainScreenModel {
 
         addButtonImage = Images.addButton.image
         addButtonImageColor = Palette.systemElement.color
+
+        settingButtonImage = Images.setting.image
+        settingButtonImageColor = Palette.systemElement.color
 
         model = Model(
             mainBackgroundColor: mainBackgroundColor,

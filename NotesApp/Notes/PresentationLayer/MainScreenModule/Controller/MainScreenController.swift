@@ -55,9 +55,15 @@ final class MainScreenController: UIViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = scrollAppearance
         navigationController?.navigationBar.standardAppearance = standartAppearance
         navigationController?.navigationBar.prefersLargeTitles = true
-        
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: mainModel.settingButtonImage,
+            style: .plain,
+            target: self,
+            action: #selector(addTapped)
+        )
+        navigationItem.rightBarButtonItem?.tintColor = mainModel.settingButtonImageColor
         title = mainModel.mainTitle
-        view.backgroundColor = mainModel.noteBackground
     }
 
     private func createToolbar(){

@@ -103,7 +103,6 @@
 				5ABA5E1429813F5700E24E68 /* Enums */,
 				5ABA5E0D2981345F00E24E68 /* Protocols */,
 				5ABA5E092981341500E24E68 /* MainScreenModule */,
-				5ABA5E2B2982AFD500E24E68 /* NoteModule */,
 			);
 			path = PresentationLayer;
 			sourceTree = "<group>";
@@ -206,37 +205,6 @@
 				5ABA5E2129824FA300E24E68 /* Rubik-Regular.ttf */,
 			);
 			path = Fonts;
-			sourceTree = "<group>";
-		};
-		5ABA5E2B2982AFD500E24E68 /* NoteModule */ = {
-			isa = PBXGroup;
-			children = (
-				5ABA5E2C2982AFED00E24E68 /* Model */,
-				5ABA5E2D2982AFF300E24E68 /* Controller */,
-				5ABA5E2E2982AFF900E24E68 /* View  */,
-			);
-			path = NoteModule;
-			sourceTree = "<group>";
-		};
-		5ABA5E2C2982AFED00E24E68 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		5ABA5E2D2982AFF300E24E68 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		5ABA5E2E2982AFF900E24E68 /* View  */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "View ";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
