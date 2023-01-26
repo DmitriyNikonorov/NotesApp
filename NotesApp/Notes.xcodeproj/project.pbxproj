@@ -9,19 +9,35 @@
 /* Begin PBXBuildFile section */
 		5ABA5DED29812A8300E24E68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA5DEC29812A8300E24E68 /* AppDelegate.swift */; };
 		5ABA5DEF29812A8300E24E68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA5DEE29812A8300E24E68 /* SceneDelegate.swift */; };
-		5ABA5DF129812A8300E24E68 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA5DF029812A8300E24E68 /* ViewController.swift */; };
+		5ABA5DF129812A8300E24E68 /* MainScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA5DF029812A8300E24E68 /* MainScreenController.swift */; };
 		5ABA5DF629812A8800E24E68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5ABA5DF529812A8800E24E68 /* Assets.xcassets */; };
 		5ABA5DF929812A8800E24E68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5ABA5DF729812A8800E24E68 /* LaunchScreen.storyboard */; };
+		5ABA5E0529812DFB00E24E68 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA5E0429812DFB00E24E68 /* Palette.swift */; };
+		5ABA5E0829812E4D00E24E68 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA5E0729812E4D00E24E68 /* Extentions.swift */; };
+		5ABA5E0F2981346B00E24E68 /* ModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA5E0E2981346B00E24E68 /* ModelProtocol.swift */; };
+		5ABA5E112981348F00E24E68 /* MainScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA5E102981348F00E24E68 /* MainScreenModel.swift */; };
+		5ABA5E132981356800E24E68 /* MainScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA5E122981356800E24E68 /* MainScreenView.swift */; };
+		5ABA5E1629813F6800E24E68 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA5E1529813F6800E24E68 /* Enums.swift */; };
+		5ABA5E182981400700E24E68 /* NoteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA5E172981400700E24E68 /* NoteCollectionViewCell.swift */; };
+		5ABA5E1D298176BF00E24E68 /* CellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA5E1C298176BF00E24E68 /* CellModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5ABA5DE929812A8300E24E68 /* Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5ABA5DEC29812A8300E24E68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5ABA5DEE29812A8300E24E68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5ABA5DF029812A8300E24E68 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5ABA5DF029812A8300E24E68 /* MainScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenController.swift; sourceTree = "<group>"; };
 		5ABA5DF529812A8800E24E68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5ABA5DF829812A8800E24E68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5ABA5DFA29812A8800E24E68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5ABA5E0429812DFB00E24E68 /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
+		5ABA5E0729812E4D00E24E68 /* Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
+		5ABA5E0E2981346B00E24E68 /* ModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelProtocol.swift; sourceTree = "<group>"; };
+		5ABA5E102981348F00E24E68 /* MainScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenModel.swift; sourceTree = "<group>"; };
+		5ABA5E122981356800E24E68 /* MainScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenView.swift; sourceTree = "<group>"; };
+		5ABA5E1529813F6800E24E68 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		5ABA5E172981400700E24E68 /* NoteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCollectionViewCell.swift; sourceTree = "<group>"; };
+		5ABA5E1C298176BF00E24E68 /* CellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +90,9 @@
 		5ABA5E0129812D2600E24E68 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
-				5ABA5DF029812A8300E24E68 /* ViewController.swift */,
+				5ABA5E1429813F5700E24E68 /* Enums */,
+				5ABA5E0D2981345F00E24E68 /* Protocols */,
+				5ABA5E092981341500E24E68 /* MainScreenModule */,
 			);
 			path = PresentationLayer;
 			sourceTree = "<group>";
@@ -85,6 +103,7 @@
 				5ABA5DF529812A8800E24E68 /* Assets.xcassets */,
 				5ABA5DF729812A8800E24E68 /* LaunchScreen.storyboard */,
 				5ABA5DFA29812A8800E24E68 /* Info.plist */,
+				5ABA5E0429812DFB00E24E68 /* Palette.swift */,
 			);
 			path = Resourses;
 			sourceTree = "<group>";
@@ -92,8 +111,77 @@
 		5ABA5E0329812D4500E24E68 /* CoreLayer */ = {
 			isa = PBXGroup;
 			children = (
+				5ABA5E1B298176B200E24E68 /* Models */,
+				5ABA5E0629812E3C00E24E68 /* Extentions */,
 			);
 			path = CoreLayer;
+			sourceTree = "<group>";
+		};
+		5ABA5E0629812E3C00E24E68 /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				5ABA5E0729812E4D00E24E68 /* Extentions.swift */,
+			);
+			path = Extentions;
+			sourceTree = "<group>";
+		};
+		5ABA5E092981341500E24E68 /* MainScreenModule */ = {
+			isa = PBXGroup;
+			children = (
+				5ABA5E0A2981341F00E24E68 /* Model */,
+				5ABA5E0C2981342700E24E68 /* Controller */,
+				5ABA5E0B2981342400E24E68 /* View */,
+			);
+			path = MainScreenModule;
+			sourceTree = "<group>";
+		};
+		5ABA5E0A2981341F00E24E68 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5ABA5E102981348F00E24E68 /* MainScreenModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5ABA5E0B2981342400E24E68 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5ABA5E122981356800E24E68 /* MainScreenView.swift */,
+				5ABA5E172981400700E24E68 /* NoteCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5ABA5E0C2981342700E24E68 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				5ABA5DF029812A8300E24E68 /* MainScreenController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		5ABA5E0D2981345F00E24E68 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				5ABA5E0E2981346B00E24E68 /* ModelProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		5ABA5E1429813F5700E24E68 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				5ABA5E1529813F6800E24E68 /* Enums.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		5ABA5E1B298176B200E24E68 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5ABA5E1C298176BF00E24E68 /* CellModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,9 +254,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5ABA5DF129812A8300E24E68 /* ViewController.swift in Sources */,
+				5ABA5E1D298176BF00E24E68 /* CellModel.swift in Sources */,
+				5ABA5DF129812A8300E24E68 /* MainScreenController.swift in Sources */,
+				5ABA5E112981348F00E24E68 /* MainScreenModel.swift in Sources */,
+				5ABA5E182981400700E24E68 /* NoteCollectionViewCell.swift in Sources */,
+				5ABA5E0F2981346B00E24E68 /* ModelProtocol.swift in Sources */,
+				5ABA5E0529812DFB00E24E68 /* Palette.swift in Sources */,
+				5ABA5E0829812E4D00E24E68 /* Extentions.swift in Sources */,
 				5ABA5DED29812A8300E24E68 /* AppDelegate.swift in Sources */,
 				5ABA5DEF29812A8300E24E68 /* SceneDelegate.swift in Sources */,
+				5ABA5E1629813F6800E24E68 /* Enums.swift in Sources */,
+				5ABA5E132981356800E24E68 /* MainScreenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
