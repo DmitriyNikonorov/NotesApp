@@ -21,25 +21,57 @@ struct MainScreenModel {
     let textForEmptyCell: String
     let cellText: String
 
+    let fixedHeaderText: String
+    let fixedHeaderFont: UIFont
+
+    let allHeaderText: String
+    let allHeaderFont: UIFont
+
+    let noteCountLabelText: String
+    let noteCountLabelFont: UIFont
+
+    let addButtonImage: UIImage
+    let addButtonImageColor: UIColor
+
     struct Model: ModelProtocol {
+        var noteCount: UInt? = nil
         let mainBackgroundColor: UIColor
         let noteBackground: UIColor
+
+
+
     }
 
-    let model: Model
+    var model: Model
 
     init() {
         mainTitle = "Notes"
         mainTitleColor = Palette.mainText.color
         mainBackgroundColor = Palette.mainBackground.color
         noteBackground = Palette.noteBackground.color
-        cellTitleLabelFont = .systemFont(ofSize: 14)
+        cellTitleLabelFont = FontKit.H2.font
         cellTitlelabelTextColor = Palette.mainText.color
         cellBackgroundColor = Palette.noteBackground.color
 
         textForEmptyCell = "Empty note"
         cellText = ""
 
-        model = Model(mainBackgroundColor: mainBackgroundColor, noteBackground: noteBackground)
+        fixedHeaderText = "Fixed"
+        fixedHeaderFont = FontKit.H1.font
+
+        allHeaderText = "All notes"
+        allHeaderFont = FontKit.H1.font
+
+        noteCountLabelText = "notes"
+        noteCountLabelFont = FontKit.caption.font
+
+        addButtonImage = Images.addButton.image
+        addButtonImageColor = Palette.systemElement.color
+
+        model = Model(
+            mainBackgroundColor: mainBackgroundColor,
+            noteBackground: noteBackground
+
+        )
     }
 }
