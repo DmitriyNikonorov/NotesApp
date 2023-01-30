@@ -19,16 +19,10 @@ final class MainScreenView: UIView {
         collectionView.toAutoLayout()
         return collectionView
     }()
-
-    private lazy var bottomView: UIView = {
-        let view = UIView()
-        view.toAutoLayout()
-        return view
-    }()
-
+    
     // MARK: - Methods
-    private func setupUI() {
-        addSubviews(collectionView, bottomView)
+    private func setupSubviews() {
+        addSubviews(collectionView)
     }
 
     private func setupCollection() {
@@ -36,19 +30,18 @@ final class MainScreenView: UIView {
             NoteCollectionViewCell.self,
             forCellWithReuseIdentifier: CollectionReuseIdentifiers.note.rawValue
         )
+        collectionView.register(
+            HeaderCollectionView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: CollectionReuseIdentifiers.header.rawValue)
     }
 
     private func setupConstraints() {
         [
-            bottomView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            bottomView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            bottomView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            bottomView.heightAnchor.constraint(equalToConstant: 30.0),
-
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomView.topAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ].forEach { $0.isActive = true }
     }
 
@@ -59,7 +52,7 @@ final class MainScreenView: UIView {
             super.init(frame: .zero)
             collectionView.dataSource = collectionViewDataSource
             collectionView.delegate = collectionViewDelegate
-            setupUI()
+            setupSubviews()
             setupCollection()
             setupConstraints()
 
@@ -76,6 +69,5 @@ extension MainScreenView: Setupable {
         guard let model = model as? MainScreenModel.Model else { return }
         backgroundColor = model.mainBackgroundColor
         collectionView.backgroundColor = model.mainBackgroundColor
-        bottomView.backgroundColor = model.noteBackground
     }
 }

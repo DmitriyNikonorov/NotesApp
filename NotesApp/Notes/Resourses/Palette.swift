@@ -46,7 +46,7 @@ enum Palette {
         case .systemElement:
             return createColor(
                 lightMode: UIColor(red: 0.883, green: 0.655, blue: 0.066, alpha: 1),
-                darkMode: UIColor(red: 0.123, green: 0.283, blue: 0.525, alpha: 1)
+                darkMode: UIColor(red: 0.345, green: 0.643, blue: 0.69, alpha: 1)
             )
         }
     }

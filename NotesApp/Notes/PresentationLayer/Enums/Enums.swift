@@ -10,6 +10,7 @@ import UIKit
 
 enum CollectionReuseIdentifiers: String {
     case note
+    case header
 }
 
 enum Constants {
