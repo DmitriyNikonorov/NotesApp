@@ -61,6 +61,45 @@ final class MainScreenView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - Interface
+    lazy var addToCollection: (([IndexPath]) -> Void) = { [weak self] indexPath in
+        guard let self = self else { return }
+        self.collectionView.insertItems(at: indexPath)
+    }
+
+    lazy var removeFromCollection: (([IndexPath]) -> Void) = { [weak self] indexPath in
+        guard let self = self else { return }
+        self.collectionView.deleteItems(at: indexPath)
+//        self.collectionView.reloadItems(at: <#T##[IndexPath]#>)
+    }
+
+    lazy var addGesture: ((UILongPressGestureRecognizer) -> Void) = { [weak self] recognizer in
+        guard let self = self else { return }
+        self.collectionView.addGestureRecognizer(recognizer)
+    }
+
+    lazy var getIndexPath: ((CGPoint) -> IndexPath?) = { [weak self] point in
+        guard let self = self else { return nil }
+        let indexPath = self.collectionView.indexPathForItem(at: point)
+        return indexPath
+    }
+
+    lazy var getViewForCoordinates: (() -> UICollectionView) = { [weak self] in
+        guard let self = self else { return UICollectionView() }
+        return self.collectionView
+    }
+
+    lazy var setCellStateForNormal: ((Bool, [IndexPath]) -> Void) = { [weak self] istrue, indexPaths in
+        guard let self = self else { return }
+        for indexPath in indexPaths {
+            guard let cell = self.collectionView.cellForItem(at: indexPath) as? Selectable else { return }
+            print("🔫changeUI")
+            cell.changeUI(toNormal: istrue)
+        }
+//        guard let cell = self.collectionView.cellForItem(at: indexPath) as? Selectable else { return }
+//        cell.changeUI()
+    }
 }
 
 //MARK: - Extention Setupable

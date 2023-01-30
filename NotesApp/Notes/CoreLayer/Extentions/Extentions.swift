@@ -24,4 +24,3 @@ extension UIImageView {
         self.tintColor = color
       }
 }
-

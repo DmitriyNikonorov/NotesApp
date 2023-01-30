@@ -6,6 +6,8 @@
 	<array>
 		<string>Rubik-Regular.ttf</string>
 		<string>Rubik-Medium.ttf</string>
+		<string>Rubik-Italic.ttf</string>
+		<string>Rubik-Bold.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

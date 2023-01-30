@@ -11,5 +11,6 @@ import UIKit
 struct CellModel {
     let titleLabelFont: UIFont
     let titleLabelTextColor: UIColor
-    let backgroundColor: UIColor
+    let normalBackgroundColor: UIColor
+    let selectedBackgroundColor: UIColor
 }

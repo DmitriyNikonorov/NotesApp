@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct MainScreenModel {
+struct MainScreenModel: ModelProtocol {
     let mainTitle: String
     let mainTitleColor: UIColor
     let mainBackgroundColor: UIColor
@@ -16,7 +16,8 @@ struct MainScreenModel {
 
     let cellTitleLabelFont: UIFont
     let cellTitlelabelTextColor: UIColor
-    let cellBackgroundColor: UIColor
+    let cellNormalBackgroundColor: UIColor
+    let cellSelectedBackgroundColor: UIColor
 
     let textForEmptyCell: String
     let cellText: String
@@ -36,6 +37,10 @@ struct MainScreenModel {
     let settingButtonImage: UIImage
     let settingButtonImageColor: UIColor
 
+    let regularFont: UIFont
+    let italicFont: UIFont
+    let boldFont: UIFont
+
     struct Model: ModelProtocol {
         var noteCount: UInt? = nil
         let mainBackgroundColor: UIColor
@@ -51,7 +56,8 @@ struct MainScreenModel {
         noteBackground = Palette.noteBackground.color
         cellTitleLabelFont = FontKit.H2.font
         cellTitlelabelTextColor = Palette.mainText.color
-        cellBackgroundColor = Palette.noteBackground.color
+        cellNormalBackgroundColor = Palette.noteBackground.color
+        cellSelectedBackgroundColor = Palette.selected.color
 
         textForEmptyCell = "Empty note"
         cellText = ""
@@ -65,11 +71,15 @@ struct MainScreenModel {
         noteCountLabelText = "notes"
         noteCountLabelFont = FontKit.caption.font
 
-        addButtonImage = Images.addButton.image
+        addButtonImage = Images.add.image
         addButtonImageColor = Palette.systemElement.color
 
         settingButtonImage = Images.setting.image
         settingButtonImageColor = Palette.systemElement.color
+
+        regularFont = FontKit.regular.font
+        italicFont = FontKit.italic.font
+        boldFont = FontKit.bold.font
 
         model = Model(
             mainBackgroundColor: mainBackgroundColor,
