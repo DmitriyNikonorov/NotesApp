@@ -11,13 +11,12 @@ import UIKit
 final class NoteScreenController: BasicViewController {
     // MARK: - Properties
     private var mainModel: NoteScreenModel?
+    private var creatableDelegaet: Creatable
 
+    private var source: CreationSource
 
     private lazy var textAttribute: [NSAttributedString.Key: Any] = [:]
-
-
     private lazy var mainView: NoteScreenView = {
-//        let moduleView = MainScreenView(collectionViewDataSource: self, collectionViewDelegate: self)
         let mainView = NoteScreenView(textViewDelegate: self, textStorageDelegate: self)
         return mainView
     }()
@@ -32,9 +31,9 @@ final class NoteScreenController: BasicViewController {
         guard let model = model else { return }
         view.backgroundColor = model.noteBackgroundColor
         mainView.setup(withModel: model.model)
-        mainView.getSelectedRange = { range in
-//            print("range from controller is: \(range)")
-        }
+//        mainView.getSelectedRange = { range in
+////            print("range from controller is: \(range)")
+//        }
         mainView.changeTextAttributes = { [weak self] number in
             guard let self = self else { return }
             self.setupTextAttribute(forFont: .init(rawValue: number) ?? .regular)
@@ -64,7 +63,6 @@ final class NoteScreenController: BasicViewController {
             action: #selector(leftButtonDidTapped)
         )
         navigationItem.leftBarButtonItem?.tintColor = mainModel.backButtonImageColor
-
         title = mainModel.time
     }
 
@@ -142,21 +140,37 @@ final class NoteScreenController: BasicViewController {
         //Полуть диапазон выделенного текста
 //        let range = mainView.testToTapp()
 //        print("range \(range)")
+        if source == .fromMainScreen {
+            navigationController?.popViewController(animated: true)
+        } else {
+            dismiss(animated: true)
+        }
 
-        navigationController?.popViewController(animated: true)
+
     }
     
     @objc private func addButtonDidTapped() {
         print("add tapped")
+        if source == .fromMainScreen {
+            navigationController?.popViewController(animated: false)
+            creatableDelegaet.createNewNote()
+        } else {
+            dismiss(animated: true)
+            creatableDelegaet.createNewNote()
+        }
+
+
     }
 
     @objc private func editTapped(_ sender: UIBarButtonItem) {
-        mainView.changeText()
+//        mainView.changeText()
     }
 
     @objc private func rightBarButtonDidTapped(_ sender: UIBarButtonItem) {
         mainView.hideKeyboard()
         rightBarButtonItem(isShow: false)
+        let newTime = creatableDelegaet.getNewTime()
+        title = newTime
     }
 
     @objc private func updateTextView(from notification: Notification) {
@@ -175,6 +189,17 @@ final class NoteScreenController: BasicViewController {
             )
             rightBarButtonItem(isShow: true)
         }
+    }
+
+    // MARK: - Init
+    init(creatableDelegaet: Creatable, model: ModelProtocol, source: CreationSource) {
+        self.creatableDelegaet = creatableDelegaet
+        self.source = source
+        super.init(model: model)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Lifecyrcle
@@ -204,6 +229,11 @@ final class NoteScreenController: BasicViewController {
             name: UIResponder.keyboardDidHideNotification,
             object: nil
         )
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        title = nil
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -257,23 +287,23 @@ extension NoteScreenController: UITextViewDelegate {
     }
     
 
-    func textViewDidChangeSelection(_ textView: UITextView) {
-//        print(textView.text)
-//        print("textViewDidChangeSelection \(textView.selectedRange)")
-        
-    }
-
-    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-//        print("textViewShouldBeginEditing \(textView.selectedRange)")
-        return true
-    }
-
-
-    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        //После свертывания клавиатуры
-//        print(textView.text)
-        return true
-    }
+//    func textViewDidChangeSelection(_ textView: UITextView) {
+////        print(textView.text)
+////        print("textViewDidChangeSelection \(textView.selectedRange)")
+//
+//    }
+//
+//    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+////        print("textViewShouldBeginEditing \(textView.selectedRange)")
+//        return true
+//    }
+//
+//
+//    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+//        //После свертывания клавиатуры
+////        print(textView.text)
+//        return true
+//    }
 ////
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
 
@@ -451,26 +481,26 @@ extension NSTextStorageDelegate {
 
 
 
-extension UITextViewDelegate {
-    func textView(_ textView: UITextView, changeTextIn range: NSRange, replacementText text: String) {
-//        print("range from controller is: \(textView.selectedRange)")
-
-//        string.addAttributes([.foregroundColor: UIColor.red], range: NSMakeRange(0, stringCount))
-//        textView.attributedText =  string
-
-
-//        guard let range = Range(range, in: textView.text) else { return }
-//        var allText = text
-//        let subText = allText[range]
+//extension UITextViewDelegate {
+//    func textView(_ textView: UITextView, changeTextIn range: NSRange, replacementText text: String) {
+////        print("range from controller is: \(textView.selectedRange)")
 //
-//        let attributedText = NSAttributedString(string: String(subText), attributes: [.foregroundColor: UIColor.red])
-//        print("👻 \(attributedText)")
+////        string.addAttributes([.foregroundColor: UIColor.red], range: NSMakeRange(0, stringCount))
+////        textView.attributedText =  string
 //
-//        allText.replaceSubrange(range, with: "22")
-//        print("allText: \(allText)")
-//        textView.attributedText = allText
-//        testString.replaceSubrange(range, with: new)
-
-
-    }
-}
+//
+////        guard let range = Range(range, in: textView.text) else { return }
+////        var allText = text
+////        let subText = allText[range]
+////
+////        let attributedText = NSAttributedString(string: String(subText), attributes: [.foregroundColor: UIColor.red])
+////        print("👻 \(attributedText)")
+////
+////        allText.replaceSubrange(range, with: "22")
+////        print("allText: \(allText)")
+////        textView.attributedText = allText
+////        testString.replaceSubrange(range, with: new)
+//
+//
+//    }
+//}

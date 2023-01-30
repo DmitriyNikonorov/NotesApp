@@ -8,6 +8,7 @@
 import Foundation
 
 struct NoteModel {
-    let text: String
+//    let text: String
+    let text: NSAttributedString
     let lastModifiedDate: String
 }

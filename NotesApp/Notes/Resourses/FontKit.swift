@@ -12,13 +12,13 @@ enum FontKit {
     case H1
     case H2
     case body
-    case textBody
+//    case textBody
     case underlineBody
     case caption
 
-    case regular
-    case italic
-    case bold
+    case regularNoteText
+    case italicNoteText
+    case boldNoteText
 
     var font: UIFont {
         switch self {
@@ -37,11 +37,11 @@ enum FontKit {
                 return UIFont.systemFont(ofSize: 14)
             }
             return font
-        case .textBody:
-            guard let font = UIFont(name: "Rubik-Regular", size: 18) else {
-                return UIFont.systemFont(ofSize: 18)
-            }
-            return font
+//        case .textBody:
+//            guard let font = UIFont(name: "Rubik-Regular", size: 18) else {
+//                return UIFont.systemFont(ofSize: 18)
+//            }
+//            return font
         case .underlineBody:
             guard let font = UIFont(name: "Rubik-Regular", size: 12) else {
                 return UIFont.systemFont(ofSize: 12)
@@ -52,17 +52,17 @@ enum FontKit {
                 return UIFont.systemFont(ofSize: 10)
             }
             return font
-        case .regular:
+        case .regularNoteText:
             guard let font = UIFont(name: "Rubik-Regular", size: 16) else {
                 return UIFont.italicSystemFont(ofSize: 16)
             }
             return font
-        case .italic:
+        case .italicNoteText:
             guard let font = UIFont(name: "Rubik-Italic", size: 16) else {
                 return UIFont.italicSystemFont(ofSize: 16)
             }
             return font
-        case .bold:
+        case .boldNoteText:
             guard let font = UIFont(name: "Rubik-Bold", size: 16) else {
                 return UIFont.italicSystemFont(ofSize: 16)
             }

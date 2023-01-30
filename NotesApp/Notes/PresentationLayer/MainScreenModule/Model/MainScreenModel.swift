@@ -19,7 +19,7 @@ struct MainScreenModel: ModelProtocol {
     let cellNormalBackgroundColor: UIColor
     let cellSelectedBackgroundColor: UIColor
 
-    let textForEmptyCell: String
+    let textForEmptyCell: NSAttributedString
     let cellText: String
 
     let fixedHeaderText: String
@@ -59,7 +59,10 @@ struct MainScreenModel: ModelProtocol {
         cellNormalBackgroundColor = Palette.noteBackground.color
         cellSelectedBackgroundColor = Palette.selected.color
 
-        textForEmptyCell = "Empty note"
+        textForEmptyCell = NSAttributedString(
+            string: "Empty note",
+            attributes: [.font: FontKit.body.font, .foregroundColor: Palette.mainText.color]
+        )
         cellText = ""
 
         fixedHeaderText = "Fixed"
@@ -77,9 +80,9 @@ struct MainScreenModel: ModelProtocol {
         settingButtonImage = Images.setting.image
         settingButtonImageColor = Palette.systemElement.color
 
-        regularFont = FontKit.regular.font
-        italicFont = FontKit.italic.font
-        boldFont = FontKit.bold.font
+        regularFont = FontKit.regularNoteText.font
+        italicFont = FontKit.italicNoteText.font
+        boldFont = FontKit.boldNoteText.font
 
         model = Model(
             mainBackgroundColor: mainBackgroundColor,

@@ -56,7 +56,10 @@ final class MainScreenController: BasicViewController {
         mainView.setup(withModel: subModel)
     }
 
-    private func getStringForMiddleToolBarItem(from model: MainScreenModel, and notesArray: [NoteModel]) -> String {
+    private func getStringForMiddleToolBarItem(
+        from model: MainScreenModel,
+        and notesArray: [NoteModel]
+    ) -> String {
         let space = "   "
         let count = notesArray.count
         let named = model.noteCountLabelText
@@ -158,6 +161,7 @@ final class MainScreenController: BasicViewController {
         }
     }
 
+    ///Item display logic for deleting cells
     private func toolBarItemsForDeletion(isShow: Bool) {
         guard let mainModel = mainModel else { return }
         if isShow {
@@ -185,10 +189,37 @@ final class MainScreenController: BasicViewController {
                 target: self,
                 action: #selector(addButtonDidTapped)
             )
-            addButon.tintColor = .red
+            addButon.tintColor = mainModel.addButtonImageColor
 
             toolbarItems?[0] = (firstIndent)
             toolbarItems?[4] = (addButon)
+        }
+    }
+
+    private func createAndOpenNote(at indexPath: IndexPath, from source: CreationSource) {
+        title = nil
+        let model = titlesArray[indexPath.row]
+//        let currentDate = Date()
+//        let currentDateString = dateFormatter.string(from: currentDate)
+        var noteScreenModel = NoteScreenModel()
+        noteScreenModel.time = model.lastModifiedDate
+        noteScreenModel.model.noteText = model.text
+        if source == .fromMainScreen {
+            let noteScreenController = NoteScreenController(
+                creatableDelegaet: self,
+                model: noteScreenModel,
+                source: .fromMainScreen
+            )
+            navigationController?.pushViewController(noteScreenController, animated: true)
+        } else {
+            let noteScreenController = NoteScreenController(
+                creatableDelegaet: self,
+                model: noteScreenModel,
+                source: .fromNote
+            )
+            let newNavigationController = UINavigationController(rootViewController: noteScreenController)
+            newNavigationController.modalPresentationStyle = .fullScreen
+            present(newNavigationController, animated: true)
         }
     }
 
@@ -206,8 +237,6 @@ final class MainScreenController: BasicViewController {
         label.text = getStringForMiddleToolBarItem(from: mainModel, and: titlesArray)
         vibration.vibrate(state: .selection)
         toolBarItemsForDeletion(isShow: false)
-
-
     }
 
     @objc private func doneButtonDidTapped(_ sender: UIBarButtonItem) {
@@ -218,20 +247,23 @@ final class MainScreenController: BasicViewController {
     }
 
     @objc private func addButtonDidTapped(_ sender: UIBarButtonItem) {
-        guard let mainModel = mainModel else { return }
-        let newNote = NoteModel(text: "", lastModifiedDate: "")
+//        guard let mainModel = mainModel else { return }
+
+        let currentDate = Date()
+        let currentDateString = dateFormatter.string(from: currentDate)
+
+
+        let newNote = NoteModel(text: NSAttributedString(""), lastModifiedDate: currentDateString)
         titlesArray.append(newNote)
         let indexPath = IndexPath(row: titlesArray.count - 1, section: 1)
         mainView.addToCollection([indexPath])
 
-        guard let item = toolbarItems?[2] else { return }
-        guard let label = item.customView as? UILabel else { return }
-        label.text = getStringForMiddleToolBarItem(from: mainModel, and: titlesArray)
-        vibration.vibrate(state: .selection)
+//        guard let item = toolbarItems?[2] else { return }
+//        guard let label = item.customView as? UILabel else { return }
+//        label.text = getStringForMiddleToolBarItem(from: mainModel, and: titlesArray)
+//        vibration.vibrate(state: .selection)
 
-//        let noteScreenModel = NoteScreenModel()
-//        let noteScreenController = NoteScreenController(model: noteScreenModel)
-//        navigationController?.pushViewController(noteScreenController, animated: true)
+        createAndOpenNote(at: indexPath, from: .fromMainScreen)
     }
 
     @objc func longPress(longPressGestureRecognizer: UILongPressGestureRecognizer) {
@@ -274,11 +306,11 @@ final class MainScreenController: BasicViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupNavigationBar()
+        createToolbar()
     }
 }
 
-
-//MARK: - Extention
+//MARK: - Extention UICollectionViewDataSource
 extension MainScreenController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         2
@@ -319,7 +351,7 @@ extension MainScreenController: UICollectionViewDataSource {
 
             cell.setupCell(with: cellModel)
             let data = favoriteArray[indexPath.row]
-            cell.loadDataInCell(title: data.text.isEmpty ? mainModel.textForEmptyCell : data.text)
+            cell.loadDataInCell(title: data.text.description.isEmpty ? mainModel.textForEmptyCell : data.text)
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(
@@ -336,8 +368,8 @@ extension MainScreenController: UICollectionViewDataSource {
                 selectedBackgroundColor: mainModel.cellSelectedBackgroundColor
             )
             cell.setupCell(with: cellModel)
-            let data = titlesArray[indexPath.row]
-            cell.loadDataInCell(title: data.text.isEmpty ? mainModel.textForEmptyCell : data.text)
+            let noteModel = titlesArray[indexPath.row]
+            cell.loadDataInCell(title: noteModel.text.description.isEmpty ? mainModel.textForEmptyCell : noteModel.text)
 
             if selectedNotesCoorinatesArray.contains(indexPath) {
                 cell.changeUI(toNormal: false)
@@ -410,18 +442,12 @@ extension MainScreenController: UICollectionViewDataSource {
                 vibration.vibrate(state: .medium)
             }
         case .normal:
-            title = nil
-            let currentDate = Date()
-            let currentDateString = dateFormatter.string(from: currentDate)
-
-            var noteScreenModel = NoteScreenModel()
-            noteScreenModel.time = currentDateString
-            let noteScreenController = NoteScreenController(model: noteScreenModel)
-            navigationController?.pushViewController(noteScreenController, animated: true)
+            createAndOpenNote(at: indexPath, from: .fromMainScreen)
         }
     }
 }
 
+//MARK: - Extention UICollectionViewDelegateFlowLayout
 extension MainScreenController: UICollectionViewDelegateFlowLayout {
     private func itemWidth(for width: CGFloat, spacing: CGFloat) -> CGFloat {
         let itemsInRow: CGFloat = 3
@@ -466,5 +492,46 @@ extension MainScreenController: UICollectionViewDelegateFlowLayout {
         minimumInteritemSpacingForSectionAt section: Int
     ) -> CGFloat {
         Constants.insets
+    }
+}
+
+//MARK: - Extention Creatable
+extension MainScreenController: Creatable {
+    func createNewNote() {
+        let currentDate = Date()
+        let currentDateString = dateFormatter.string(from: currentDate)
+        let newNote = NoteModel(text: NSAttributedString(""), lastModifiedDate: currentDateString)
+        titlesArray.append(newNote)
+        let indexPath = IndexPath(row: titlesArray.count - 1, section: 1)
+        mainView.addToCollection([indexPath])
+        createAndOpenNote(at: indexPath, from: .fromNote)
+
+//        let currentDate = Date()
+//        let currentDateString = dateFormatter.string(from: currentDate)
+//        var noteScreenModel = NoteScreenModel()
+//        noteScreenModel.time = currentDateString
+//        let noteScreenController = NoteScreenController(
+//            creatableDelegaet: self,
+//            model: noteScreenModel,
+//            source: .fromNote
+//        )
+//        let newNavigationController = UINavigationController(rootViewController: noteScreenController)
+//        newNavigationController.modalPresentationStyle = .fullScreen
+//        present(newNavigationController, animated: true)
+
+
+        
+
+        //        navigationController?.pushViewController(noteScreenController, animated: false)
+//        guard let item = toolbarItems?[2] else { return }
+//        guard let label = item.customView as? UILabel else { return }
+//        label.text = getStringForMiddleToolBarItem(from: mainModel, and: titlesArray)
+//        vibration.vibrate(state: .selection)
+    }
+
+    func getNewTime() -> String {
+        let currentDate = Date()
+        let currentDateString = dateFormatter.string(from: currentDate)
+        return currentDateString
     }
 }

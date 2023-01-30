@@ -13,6 +13,7 @@
 		5A2BC6CE2982BA7C0041950D /* NoteScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2BC6CD2982BA7C0041950D /* NoteScreenView.swift */; };
 		5A3E01232986E03A00184021 /* Rubik-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A3E01222986E03A00184021 /* Rubik-Italic.ttf */; };
 		5A3E01252986E04500184021 /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A3E01242986E04500184021 /* Rubik-Bold.ttf */; };
+		5A9FBBAC2987998B004E5010 /* Creatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FBBAB2987998B004E5010 /* Creatable.swift */; };
 		5AB9D9E12983D64C00DCFAB6 /* NoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB9D9E02983D64C00DCFAB6 /* NoteModel.swift */; };
 		5AB9D9E42983F04100DCFAB6 /* VibravionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB9D9E32983F04100DCFAB6 /* VibravionService.swift */; };
 		5AB9D9E6298408A200DCFAB6 /* Selectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB9D9E5298408A200DCFAB6 /* Selectable.swift */; };
@@ -43,6 +44,7 @@
 		5A2BC6CD2982BA7C0041950D /* NoteScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteScreenView.swift; sourceTree = "<group>"; };
 		5A3E01222986E03A00184021 /* Rubik-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Italic.ttf"; sourceTree = "<group>"; };
 		5A3E01242986E04500184021 /* Rubik-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Bold.ttf"; sourceTree = "<group>"; };
+		5A9FBBAB2987998B004E5010 /* Creatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Creatable.swift; sourceTree = "<group>"; };
 		5AB9D9E02983D64C00DCFAB6 /* NoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteModel.swift; sourceTree = "<group>"; };
 		5AB9D9E32983F04100DCFAB6 /* VibravionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibravionService.swift; sourceTree = "<group>"; };
 		5AB9D9E5298408A200DCFAB6 /* Selectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selectable.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 			children = (
 				5ABA5E0E2981346B00E24E68 /* ModelProtocol.swift */,
 				5AB9D9E5298408A200DCFAB6 /* Selectable.swift */,
+				5A9FBBAB2987998B004E5010 /* Creatable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A2BC6CB2982B20E0041950D /* BasicViewController.swift in Sources */,
+				5A9FBBAC2987998B004E5010 /* Creatable.swift in Sources */,
 				5ABA5E1D298176BF00E24E68 /* CellModel.swift in Sources */,
 				5ABA5DF129812A8300E24E68 /* MainScreenController.swift in Sources */,
 				5ABA5E112981348F00E24E68 /* MainScreenModel.swift in Sources */,

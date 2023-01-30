@@ -36,13 +36,13 @@ final class NoteScreenView: UIView {
         var buttons = [UIBarButtonItem]()
 
 
-        buttons.append(UIBarButtonItem(title: "Test", style: .plain, target: self, action: #selector(H1ButtonTapped)))
+//        buttons.append(UIBarButtonItem(title: "Test", style: .plain, target: self, action: #selector(H1ButtonTapped)))
 
         //indent
         buttons.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil))
         //button
         let boldButton = UIButton(type: .system)
-        let attributedString = NSAttributedString(string: "Bold", attributes: [.font: FontKit.bold.font, .foregroundColor: Palette.mainText.color])
+        let attributedString = NSAttributedString(string: "Bold", attributes: [.font: FontKit.boldNoteText.font, .foregroundColor: Palette.mainText.color])
         boldButton.setAttributedTitle(attributedString, for: .normal)
         boldButton.addTarget(self, action: #selector(fontButtonTapped), for: .touchUpInside)
         boldButton.tag = 2
@@ -54,7 +54,7 @@ final class NoteScreenView: UIView {
         let italicButton = UIButton(type: .system)
         let italicAttributedString = NSAttributedString(
             string: "Italic",
-            attributes: [.font: FontKit.italic.font, .foregroundColor: Palette.mainText.color]
+            attributes: [.font: FontKit.italicNoteText.font, .foregroundColor: Palette.mainText.color]
         )
         italicButton.setAttributedTitle(italicAttributedString, for: .normal)
         italicButton.addTarget(self, action: #selector(fontButtonTapped), for: .touchUpInside)
@@ -67,7 +67,7 @@ final class NoteScreenView: UIView {
         let regularButton = UIButton(type: .system)
         let regularAttributedString = NSAttributedString(
             string: "Regular",
-            attributes: [.font: FontKit.regular.font, .foregroundColor: Palette.mainText.color]
+            attributes: [.font: FontKit.regularNoteText.font, .foregroundColor: Palette.mainText.color]
         )
         regularButton.setAttributedTitle(regularAttributedString, for: .normal)
         regularButton.addTarget(self, action: #selector(fontButtonTapped), for: .touchUpInside)
@@ -91,21 +91,17 @@ final class NoteScreenView: UIView {
         case 0:
             changeTextAttributes?(0)
             let str = textView.textStorage.string
-            let atrStr = NSAttributedString(string: str, attributes: [.font: FontKit.regular.font])
+            let atrStr = NSAttributedString(string: str, attributes: [.font: FontKit.regularNoteText.font])
             textView.attributedText = atrStr
-
-//            textView.layoutManager.textStorage.muta
-//            mutStr = textView.attributedText
         case 1:
             changeTextAttributes?(1)
             let str = textView.textStorage.string
-            let atrStr = NSAttributedString(string: str, attributes: [.font: FontKit.italic.font])
+            let atrStr = NSAttributedString(string: str, attributes: [.font: FontKit.italicNoteText.font])
             textView.attributedText = atrStr
-//            textView.attributedText = mutStr
         case 2:
             changeTextAttributes?(2)
             let str = textView.textStorage.string
-            let atrStr = NSAttributedString(string: str, attributes: [.font: FontKit.bold.font])
+            let atrStr = NSAttributedString(string: str, attributes: [.font: FontKit.boldNoteText.font])
             textView.attributedText = atrStr
         default:
             break
@@ -119,13 +115,9 @@ final class NoteScreenView: UIView {
 
     @objc private func H1ButtonTapped(_ sender: UIBarButtonItem) {
         let str = textView.textStorage.string
-        let atrStr = NSAttributedString(string: str, attributes: [.font: FontKit.bold.font])
+        let atrStr = NSAttributedString(string: str, attributes: [.font: FontKit.boldNoteText.font])
 
         textView.attributedText = atrStr
-
-
-
-
 //        textView.textStorage.delegate?.textStorageMakeSelectiveEditing(
 //            textView.textStorage, willProcessEditing: .init(rawValue: 3),
 //            range: textView.selectedRange, changeInLength: 1)
@@ -137,7 +129,7 @@ final class NoteScreenView: UIView {
     }
 
     var changeTextAttributes: ((Int) -> Void)?
-    var changeAttributesTwo: (() -> Void)?
+//    var changeAttributesTwo: (() -> Void)?
 
 
     // MARK: - Init
@@ -166,33 +158,25 @@ final class NoteScreenView: UIView {
         self.textView.resignFirstResponder()
     }
 
-    lazy var changeText: (() -> Void) = { [weak self] in
-        guard let self = self else { return }
-        self.textView.font = FontKit.H1.font
-    }
+//    lazy var changeText: (() -> Void) = { [weak self] in
+//        guard let self = self else { return }
+//        self.textView.font = FontKit.H1.font
+//    }
 
-    lazy var testToTapp: (() -> UITextRange?) = {
-        self.textView.selectedTextRange
-    }
+//    lazy var testToTapp: (() -> UITextRange?) = {
+//        self.textView.selectedTextRange
+//    }
 
-    var getSelectedRange: ((UITextRange?) -> Void)?
+//    var getSelectedRange: ((UITextRange?) -> Void)?
 }
 
 extension NoteScreenView: Setupable {
     func setup(withModel model: ModelProtocol) {
         guard let model = model as? NoteScreenModel.Model else { return }
+        textView.attributedText = model.noteText
 
-        if textView.text.isEmpty {
-            textView.font = model.textViewFont
-        }
-
+//        if textView.text.isEmpty {
+//            textView.font = model.textViewFont
+//        }
     }
 }
-
-
-class LM: NSLayoutManager {
-    override func drawGlyphs(forGlyphRange glyphsToShow: NSRange, at origin: CGPoint) {
-        print("🤬🤬🤬🤬")
-    }
-}
-

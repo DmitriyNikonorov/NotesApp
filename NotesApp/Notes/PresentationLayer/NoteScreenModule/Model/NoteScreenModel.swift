@@ -22,6 +22,7 @@ struct NoteScreenModel: ModelProtocol {
     let titleFont: UIFont
 
     var time: String?
+//    var noteText: NSAttributedString?
 
     let regularFont: UIFont
     let italicFont: UIFont
@@ -29,9 +30,10 @@ struct NoteScreenModel: ModelProtocol {
 
     struct Model: ModelProtocol {
         let textViewFont: UIFont
+        var noteText: NSAttributedString?
     }
 
-    let model: Model
+    var model: Model
 
     init() {
         noteBackgroundColor = Palette.noteBackground.color
@@ -44,12 +46,12 @@ struct NoteScreenModel: ModelProtocol {
         toolBarImageColor = Palette.systemElement.color
         titleColor = Palette.subtext.color
         titleFont = FontKit.underlineBody.font
-        regularFont = FontKit.regular.font
-        italicFont = FontKit.italic.font
-        boldFont = FontKit.bold.font
+        regularFont = FontKit.regularNoteText.font
+        italicFont = FontKit.italicNoteText.font
+        boldFont = FontKit.boldNoteText.font
         
         model = Model(
-            textViewFont: FontKit.textBody.font
+            textViewFont: FontKit.body.font
         )
     }
 }
