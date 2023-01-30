@@ -30,7 +30,4 @@ final class HeaderCollectionView: UICollectionReusableView {
         titleLabel.font = font
         setupConstraints()
     }
-
-
-        
 }

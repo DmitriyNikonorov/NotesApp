@@ -57,8 +57,8 @@ final class NoteCollectionViewCell: UICollectionViewCell {
         selectedColor = cellModel.selectedBackgroundColor
     }
 
-    func loadDataInCell(title: String) {
-        titleLabel.text = title
+    func loadDataInCell(title: NSAttributedString) {
+        titleLabel.attributedText = title
     }
 }
 
@@ -66,16 +66,10 @@ final class NoteCollectionViewCell: UICollectionViewCell {
 //MARK: - Extention
 extension NoteCollectionViewCell: Selectable {
     func changeUI(toNormal: Bool) {
-//    func changeUI() {
         if toNormal {
-            print("isSelected: \(isSelected)")
             contentView.backgroundColor = normalColor
-//            isNormal.toggle()
         } else {
-//            print("toNormal: \(toNormal)")
-            print("isSelected: \(isSelected)")
             contentView.backgroundColor = selectedColor
-//            isNormal.toggle()
         }
     }
 }
