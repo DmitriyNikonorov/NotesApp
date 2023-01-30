@@ -9,6 +9,9 @@ import UIKit
 
 final class NoteCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
+    private lazy var normalColor = UIColor()
+    private lazy var selectedColor = UIColor()
+
     private lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.numberOfLines = 1
@@ -38,6 +41,7 @@ final class NoteCollectionViewCell: UICollectionViewCell {
         super.init(frame: .zero)
         setupUI()
         setupConstraints()
+
     }
 
     required init?(coder: NSCoder) {
@@ -48,11 +52,30 @@ final class NoteCollectionViewCell: UICollectionViewCell {
     func setupCell(with cellModel: CellModel) {
         titleLabel.font = cellModel.titleLabelFont
         titleLabel.textColor = cellModel.titleLabelTextColor
-        contentView.backgroundColor = cellModel.backgroundColor
+        contentView.backgroundColor = cellModel.normalBackgroundColor
+        normalColor = cellModel.normalBackgroundColor
+        selectedColor = cellModel.selectedBackgroundColor
     }
-
 
     func loadDataInCell(title: String) {
         titleLabel.text = title
+    }
+}
+
+
+//MARK: - Extention
+extension NoteCollectionViewCell: Selectable {
+    func changeUI(toNormal: Bool) {
+//    func changeUI() {
+        if toNormal {
+            print("isSelected: \(isSelected)")
+            contentView.backgroundColor = normalColor
+//            isNormal.toggle()
+        } else {
+//            print("toNormal: \(toNormal)")
+            print("isSelected: \(isSelected)")
+            contentView.backgroundColor = selectedColor
+//            isNormal.toggle()
+        }
     }
 }

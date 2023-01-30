@@ -12,21 +12,61 @@ enum FontKit {
     case H1
     case H2
     case body
+    case textBody
     case underlineBody
     case caption
+
+    case regular
+    case italic
+    case bold
 
     var font: UIFont {
         switch self {
         case .H1:
-            return .boldSystemFont(ofSize: 20)
+            guard let font = UIFont(name: "Rubik-Medium", size: 20) else {
+                return UIFont.systemFont(ofSize: 20)
+            }
+            return font
         case .H2:
-            return .boldSystemFont(ofSize: 12)
+            guard let font = UIFont(name: "Rubik-Medium", size: 12) else {
+                return UIFont.systemFont(ofSize: 12)
+            }
+            return font
         case .body:
-            return .systemFont(ofSize: 14)
+            guard let font = UIFont(name: "Rubik-Regular", size: 14) else {
+                return UIFont.systemFont(ofSize: 14)
+            }
+            return font
+        case .textBody:
+            guard let font = UIFont(name: "Rubik-Regular", size: 18) else {
+                return UIFont.systemFont(ofSize: 18)
+            }
+            return font
         case .underlineBody:
-            return .systemFont(ofSize: 12)
+            guard let font = UIFont(name: "Rubik-Regular", size: 12) else {
+                return UIFont.systemFont(ofSize: 12)
+            }
+            return font
         case .caption:
-            return .systemFont(ofSize: 10)
+            guard let font = UIFont(name: "Rubik-Regular", size: 10) else {
+                return UIFont.systemFont(ofSize: 10)
+            }
+            return font
+        case .regular:
+            guard let font = UIFont(name: "Rubik-Regular", size: 16) else {
+                return UIFont.italicSystemFont(ofSize: 16)
+            }
+            return font
+        case .italic:
+            guard let font = UIFont(name: "Rubik-Italic", size: 16) else {
+                return UIFont.italicSystemFont(ofSize: 16)
+            }
+            return font
+        case .bold:
+            guard let font = UIFont(name: "Rubik-Bold", size: 16) else {
+                return UIFont.italicSystemFont(ofSize: 16)
+            }
+            return font
         }
     }
 }

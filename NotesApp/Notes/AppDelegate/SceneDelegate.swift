@@ -17,7 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         window = UIWindow(windowScene: scene)
         let model = MainScreenModel()
-        let viewController = MainScreenController(model: model)
+        let vibreation = Vibration()
+        let viewController = MainScreenController(vibration: vibreation, model: model)
 
         let navigationController = UINavigationController(rootViewController: viewController)
 

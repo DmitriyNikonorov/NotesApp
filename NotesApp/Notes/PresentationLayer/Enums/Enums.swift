@@ -18,3 +18,8 @@ enum Constants {
     static let spacing: CGFloat = 8.0
     static let insets: CGFloat = 12.0
 }
+
+
+enum NoteFonts: Int {
+    case regular, italic, bold
+}

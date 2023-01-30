@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A2BC6C42982B09F0041950D /* NoteScreenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2BC6C32982B09F0041950D /* NoteScreenModel.swift */; };
+		5A2BC6C72982B1670041950D /* NoteScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2BC6C62982B1670041950D /* NoteScreenController.swift */; };
+		5A2BC6CB2982B20E0041950D /* BasicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2BC6CA2982B20E0041950D /* BasicViewController.swift */; };
+		5A2BC6CE2982BA7C0041950D /* NoteScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2BC6CD2982BA7C0041950D /* NoteScreenView.swift */; };
+		5A3E01232986E03A00184021 /* Rubik-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A3E01222986E03A00184021 /* Rubik-Italic.ttf */; };
+		5A3E01252986E04500184021 /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A3E01242986E04500184021 /* Rubik-Bold.ttf */; };
+		5AB9D9E12983D64C00DCFAB6 /* NoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB9D9E02983D64C00DCFAB6 /* NoteModel.swift */; };
+		5AB9D9E42983F04100DCFAB6 /* VibravionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB9D9E32983F04100DCFAB6 /* VibravionService.swift */; };
+		5AB9D9E6298408A200DCFAB6 /* Selectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB9D9E5298408A200DCFAB6 /* Selectable.swift */; };
 		5ABA5DED29812A8300E24E68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA5DEC29812A8300E24E68 /* AppDelegate.swift */; };
 		5ABA5DEF29812A8300E24E68 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA5DEE29812A8300E24E68 /* SceneDelegate.swift */; };
 		5ABA5DF129812A8300E24E68 /* MainScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA5DF029812A8300E24E68 /* MainScreenController.swift */; };
@@ -28,6 +37,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A2BC6C32982B09F0041950D /* NoteScreenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteScreenModel.swift; sourceTree = "<group>"; };
+		5A2BC6C62982B1670041950D /* NoteScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteScreenController.swift; sourceTree = "<group>"; };
+		5A2BC6CA2982B20E0041950D /* BasicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicViewController.swift; sourceTree = "<group>"; };
+		5A2BC6CD2982BA7C0041950D /* NoteScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteScreenView.swift; sourceTree = "<group>"; };
+		5A3E01222986E03A00184021 /* Rubik-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Italic.ttf"; sourceTree = "<group>"; };
+		5A3E01242986E04500184021 /* Rubik-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Bold.ttf"; sourceTree = "<group>"; };
+		5AB9D9E02983D64C00DCFAB6 /* NoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteModel.swift; sourceTree = "<group>"; };
+		5AB9D9E32983F04100DCFAB6 /* VibravionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibravionService.swift; sourceTree = "<group>"; };
+		5AB9D9E5298408A200DCFAB6 /* Selectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selectable.swift; sourceTree = "<group>"; };
 		5ABA5DE929812A8300E24E68 /* Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5ABA5DEC29812A8300E24E68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5ABA5DEE29812A8300E24E68 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +79,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5A2BC6C52982B12E0041950D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				5A2BC6C62982B1670041950D /* NoteScreenController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		5A2BC6C82982B1E80041950D /* BasicComponents */ = {
+			isa = PBXGroup;
+			children = (
+				5A2BC6CA2982B20E0041950D /* BasicViewController.swift */,
+			);
+			path = BasicComponents;
+			sourceTree = "<group>";
+		};
+		5A2BC6CC2982BA5C0041950D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5A2BC6CD2982BA7C0041950D /* NoteScreenView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5AB9D9E22983F02B00DCFAB6 /* VibrationService */ = {
+			isa = PBXGroup;
+			children = (
+				5AB9D9E32983F04100DCFAB6 /* VibravionService.swift */,
+			);
+			path = VibrationService;
+			sourceTree = "<group>";
+		};
 		5ABA5DE029812A8300E24E68 = {
 			isa = PBXGroup;
 			children = (
@@ -103,6 +153,7 @@
 				5ABA5E1429813F5700E24E68 /* Enums */,
 				5ABA5E0D2981345F00E24E68 /* Protocols */,
 				5ABA5E092981341500E24E68 /* MainScreenModule */,
+				5ABA5E2F2982B03200E24E68 /* NoteScreenModule */,
 			);
 			path = PresentationLayer;
 			sourceTree = "<group>";
@@ -124,6 +175,8 @@
 		5ABA5E0329812D4500E24E68 /* CoreLayer */ = {
 			isa = PBXGroup;
 			children = (
+				5AB9D9E22983F02B00DCFAB6 /* VibrationService */,
+				5A2BC6C82982B1E80041950D /* BasicComponents */,
 				5ABA5E1B298176B200E24E68 /* Models */,
 				5ABA5E0629812E3C00E24E68 /* Extentions */,
 			);
@@ -178,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				5ABA5E0E2981346B00E24E68 /* ModelProtocol.swift */,
+				5AB9D9E5298408A200DCFAB6 /* Selectable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -194,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				5ABA5E1C298176BF00E24E68 /* CellModel.swift */,
+				5AB9D9E02983D64C00DCFAB6 /* NoteModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -203,8 +258,28 @@
 			children = (
 				5ABA5E2229824FA300E24E68 /* Rubik-Medium.ttf */,
 				5ABA5E2129824FA300E24E68 /* Rubik-Regular.ttf */,
+				5A3E01222986E03A00184021 /* Rubik-Italic.ttf */,
+				5A3E01242986E04500184021 /* Rubik-Bold.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		5ABA5E2F2982B03200E24E68 /* NoteScreenModule */ = {
+			isa = PBXGroup;
+			children = (
+				5ABA5E302982B04500E24E68 /* Model */,
+				5A2BC6C52982B12E0041950D /* Controller */,
+				5A2BC6CC2982BA5C0041950D /* View */,
+			);
+			path = NoteScreenModule;
+			sourceTree = "<group>";
+		};
+		5ABA5E302982B04500E24E68 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5A2BC6C32982B09F0041950D /* NoteScreenModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,6 +341,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5ABA5DF929812A8800E24E68 /* LaunchScreen.storyboard in Resources */,
+				5A3E01252986E04500184021 /* Rubik-Bold.ttf in Resources */,
+				5A3E01232986E03A00184021 /* Rubik-Italic.ttf in Resources */,
 				5ABA5E2329824FA300E24E68 /* Rubik-Regular.ttf in Resources */,
 				5ABA5DF629812A8800E24E68 /* Assets.xcassets in Resources */,
 				5ABA5E2429824FA300E24E68 /* Rubik-Medium.ttf in Resources */,
@@ -279,20 +356,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A2BC6CB2982B20E0041950D /* BasicViewController.swift in Sources */,
 				5ABA5E1D298176BF00E24E68 /* CellModel.swift in Sources */,
 				5ABA5DF129812A8300E24E68 /* MainScreenController.swift in Sources */,
 				5ABA5E112981348F00E24E68 /* MainScreenModel.swift in Sources */,
 				5ABA5E182981400700E24E68 /* NoteCollectionViewCell.swift in Sources */,
 				5ABA5E1F29824F5B00E24E68 /* FontKit.swift in Sources */,
+				5AB9D9E6298408A200DCFAB6 /* Selectable.swift in Sources */,
 				5ABA5E2629825FB200E24E68 /* HeaderCollectionView.swift in Sources */,
 				5ABA5E0F2981346B00E24E68 /* ModelProtocol.swift in Sources */,
 				5ABA5E2A2982690700E24E68 /* Images.swift in Sources */,
+				5AB9D9E12983D64C00DCFAB6 /* NoteModel.swift in Sources */,
 				5ABA5E0529812DFB00E24E68 /* Palette.swift in Sources */,
 				5ABA5E0829812E4D00E24E68 /* Extentions.swift in Sources */,
 				5ABA5DED29812A8300E24E68 /* AppDelegate.swift in Sources */,
+				5A2BC6C42982B09F0041950D /* NoteScreenModel.swift in Sources */,
 				5ABA5DEF29812A8300E24E68 /* SceneDelegate.swift in Sources */,
+				5A2BC6CE2982BA7C0041950D /* NoteScreenView.swift in Sources */,
 				5ABA5E1629813F6800E24E68 /* Enums.swift in Sources */,
 				5ABA5E132981356800E24E68 /* MainScreenView.swift in Sources */,
+				5AB9D9E42983F04100DCFAB6 /* VibravionService.swift in Sources */,
+				5A2BC6C72982B1670041950D /* NoteScreenController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,7 +444,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -414,7 +498,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
