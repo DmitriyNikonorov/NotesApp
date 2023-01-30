@@ -10,4 +10,5 @@ import Foundation
 protocol Creatable {
     func getNewTime() -> String
     func createNewNote()
+    func saveChanges(withString string: NSAttributedString, and index: Int)
 }

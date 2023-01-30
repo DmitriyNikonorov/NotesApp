@@ -55,7 +55,6 @@ final class MainScreenView: UIView {
             setupSubviews()
             setupCollection()
             setupConstraints()
-
     }
 
     required init?(coder: NSCoder) {
@@ -71,6 +70,11 @@ final class MainScreenView: UIView {
     lazy var removeFromCollection: (([IndexPath]) -> Void) = { [weak self] indexPath in
         guard let self = self else { return }
         self.collectionView.deleteItems(at: indexPath)
+    }
+
+    lazy var reloadItem: (([IndexPath]) -> Void) = { [weak self] indexPath in
+        guard let self = self else { return }
+        self.collectionView.reloadItems(at: indexPath)
     }
 
     lazy var addGesture: ((UILongPressGestureRecognizer) -> Void) = { [weak self] recognizer in

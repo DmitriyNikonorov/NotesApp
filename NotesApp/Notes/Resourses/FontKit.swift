@@ -12,7 +12,6 @@ enum FontKit {
     case H1
     case H2
     case body
-//    case textBody
     case underlineBody
     case caption
 
@@ -37,11 +36,6 @@ enum FontKit {
                 return UIFont.systemFont(ofSize: 14)
             }
             return font
-//        case .textBody:
-//            guard let font = UIFont(name: "Rubik-Regular", size: 18) else {
-//                return UIFont.systemFont(ofSize: 18)
-//            }
-//            return font
         case .underlineBody:
             guard let font = UIFont(name: "Rubik-Regular", size: 12) else {
                 return UIFont.systemFont(ofSize: 12)

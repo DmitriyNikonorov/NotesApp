@@ -5,6 +5,7 @@
 //  Created by Дмитрий Никоноров on 27.01.2023.
 //
 
+import Foundation
 import UIKit
 
 final class NoteScreenView: UIView {
@@ -15,6 +16,10 @@ final class NoteScreenView: UIView {
         textView.toAutoLayout()
         return textView
     }()
+
+    private lazy var regularAttributes: [NSAttributedString.Key : Any] = [:]
+    private lazy var italicAttributes: [NSAttributedString.Key : Any] = [:]
+    private lazy var boldAttributes: [NSAttributedString.Key : Any] = [:]
 
 
     // MARK: - Methods
@@ -31,115 +36,35 @@ final class NoteScreenView: UIView {
         ].forEach { $0.isActive = true }
     }
 
-    private func addToolBar() {
-        let bar = UIToolbar(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
-        var buttons = [UIBarButtonItem]()
-
-
-//        buttons.append(UIBarButtonItem(title: "Test", style: .plain, target: self, action: #selector(H1ButtonTapped)))
-
-        //indent
-        buttons.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil))
-        //button
-        let boldButton = UIButton(type: .system)
-        let attributedString = NSAttributedString(string: "Bold", attributes: [.font: FontKit.boldNoteText.font, .foregroundColor: Palette.mainText.color])
-        boldButton.setAttributedTitle(attributedString, for: .normal)
-        boldButton.addTarget(self, action: #selector(fontButtonTapped), for: .touchUpInside)
-        boldButton.tag = 2
-        let boldBarButton = UIBarButtonItem(customView: boldButton)
-        buttons.append(boldBarButton)
-        //indent
-        buttons.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil))
-        //button
-        let italicButton = UIButton(type: .system)
-        let italicAttributedString = NSAttributedString(
-            string: "Italic",
-            attributes: [.font: FontKit.italicNoteText.font, .foregroundColor: Palette.mainText.color]
-        )
-        italicButton.setAttributedTitle(italicAttributedString, for: .normal)
-        italicButton.addTarget(self, action: #selector(fontButtonTapped), for: .touchUpInside)
-        italicButton.tag = 1
-        let italicBarButton = UIBarButtonItem(customView: italicButton)
-        buttons.append(italicBarButton)
-        //indent
-        buttons.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil))
-        //button
-        let regularButton = UIButton(type: .system)
-        let regularAttributedString = NSAttributedString(
-            string: "Regular",
-            attributes: [.font: FontKit.regularNoteText.font, .foregroundColor: Palette.mainText.color]
-        )
-        regularButton.setAttributedTitle(regularAttributedString, for: .normal)
-        regularButton.addTarget(self, action: #selector(fontButtonTapped), for: .touchUpInside)
-        regularButton.tag = 0
-        let regularBarButton = UIBarButtonItem(customView: regularButton)
-        buttons.append(regularBarButton)
-        //indent
-        buttons.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil))
-
-        bar.items = buttons
-        bar.sizeToFit()
-        textView.inputAccessoryView = bar
-    }
-
-    private var mutStr = NSMutableAttributedString()
-
     //MARK: - Objc methods
     @objc private func fontButtonTapped(_ sender: UIButton) {
-
         switch sender.tag {
         case 0:
             changeTextAttributes?(0)
-            let str = textView.textStorage.string
-            let atrStr = NSAttributedString(string: str, attributes: [.font: FontKit.regularNoteText.font])
-            textView.attributedText = atrStr
+            let string = textView.textStorage.string
+            let attributedString = NSAttributedString(string: string, attributes: regularAttributes)
+            textView.attributedText = attributedString
         case 1:
             changeTextAttributes?(1)
-            let str = textView.textStorage.string
-            let atrStr = NSAttributedString(string: str, attributes: [.font: FontKit.italicNoteText.font])
-            textView.attributedText = atrStr
+            let string = textView.textStorage.string
+            let attributedString = NSAttributedString(string: string, attributes: italicAttributes)
+            textView.attributedText = attributedString
         case 2:
             changeTextAttributes?(2)
-            let str = textView.textStorage.string
-            let atrStr = NSAttributedString(string: str, attributes: [.font: FontKit.boldNoteText.font])
-            textView.attributedText = atrStr
+            let string = textView.textStorage.string
+            let attributedString = NSAttributedString(string: string, attributes: boldAttributes)
+            textView.attributedText = attributedString
         default:
             break
         }
-//        textView.textStorage.delegate?.textStorageMakeSelectiveEditing(
-//            textView.textStorage, willProcessEditing: .init(rawValue: 3),
-//            range: textView.selectedRange, changeInLength: 1)
-//
-//        textView.textStorage.delegate?.textStorage?(textView.textStorage, willProcessEditing: .init(rawValue: 3), range: textView.textStorage.editedRange, changeInLength: 1)
     }
-
-    @objc private func H1ButtonTapped(_ sender: UIBarButtonItem) {
-        let str = textView.textStorage.string
-        let atrStr = NSAttributedString(string: str, attributes: [.font: FontKit.boldNoteText.font])
-
-        textView.attributedText = atrStr
-//        textView.textStorage.delegate?.textStorageMakeSelectiveEditing(
-//            textView.textStorage, willProcessEditing: .init(rawValue: 3),
-//            range: textView.selectedRange, changeInLength: 1)
-
-//        textView.textStorage.removeAttribute(.foregroundColor, range: textView.selectedRange)
-//
-//        textView.textStorage.delegate?.textStorage?(textView.textStorage, willProcessEditing: .init(rawValue: 3), range: textView.textStorage.editedRange, changeInLength: 1)
-        
-    }
-
-    var changeTextAttributes: ((Int) -> Void)?
-//    var changeAttributesTwo: (() -> Void)?
-
 
     // MARK: - Init
-    init(textViewDelegate: UITextViewDelegate, textStorageDelegate: NSTextStorageDelegate) {
+    init(textViewDelegate: UITextViewDelegate) {
         super.init(frame: .zero)
         textView.delegate = textViewDelegate
-        textView.textStorage.delegate = textStorageDelegate
         setupSubviews()
         setupConstraints()
-        addToolBar()
     }
 
     required init?(coder: NSCoder) {
@@ -158,16 +83,12 @@ final class NoteScreenView: UIView {
         self.textView.resignFirstResponder()
     }
 
-//    lazy var changeText: (() -> Void) = { [weak self] in
-//        guard let self = self else { return }
-//        self.textView.font = FontKit.H1.font
-//    }
+    lazy var getText: (() -> NSAttributedString) = { [weak self] in
+        guard let self = self else { return NSAttributedString() }
+        return self.textView.attributedText
+    }
 
-//    lazy var testToTapp: (() -> UITextRange?) = {
-//        self.textView.selectedTextRange
-//    }
-
-//    var getSelectedRange: ((UITextRange?) -> Void)?
+    var changeTextAttributes: ((Int) -> Void)?
 }
 
 extension NoteScreenView: Setupable {
@@ -175,8 +96,59 @@ extension NoteScreenView: Setupable {
         guard let model = model as? NoteScreenModel.Model else { return }
         textView.attributedText = model.noteText
 
-//        if textView.text.isEmpty {
-//            textView.font = model.textViewFont
-//        }
+        regularAttributes = model.regularButtonAttributes
+        italicAttributes = model.italicButtonAttributes
+        boldAttributes = model.boldButtonAttributes
+
+        let bar = UIToolbar(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        var buttons = [UIBarButtonItem]()
+        //indent
+        buttons.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil))
+
+        //button
+        let boldButton = UIButton(type: .system)
+        let boldAttributedString = NSAttributedString(
+            string: model.boldButtonText,
+            attributes: model.boldButtonAttributes
+        )
+        boldButton.setAttributedTitle(boldAttributedString, for: .normal)
+        boldButton.addTarget(self, action: #selector(fontButtonTapped), for: .touchUpInside)
+        boldButton.tag = 2
+        let boldBarButton = UIBarButtonItem(customView: boldButton)
+        buttons.append(boldBarButton)
+        //indent
+        buttons.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil))
+
+        //button
+        let italicButton = UIButton(type: .system)
+        let italicAttributedString = NSAttributedString(
+            string: model.italicButtonText,
+            attributes: model.italicButtonAttributes
+        )
+        italicButton.setAttributedTitle(italicAttributedString, for: .normal)
+        italicButton.addTarget(self, action: #selector(fontButtonTapped), for: .touchUpInside)
+        italicButton.tag = 1
+        let italicBarButton = UIBarButtonItem(customView: italicButton)
+        buttons.append(italicBarButton)
+        //indent
+        buttons.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil))
+
+        //button
+        let regularButton = UIButton(type: .system)
+        let regularAttributedString = NSAttributedString(
+            string: model.regularButtonText,
+            attributes: model.regularButtonAttributes
+        )
+        regularButton.setAttributedTitle(regularAttributedString, for: .normal)
+        regularButton.addTarget(self, action: #selector(fontButtonTapped), for: .touchUpInside)
+        regularButton.tag = 0
+        let regularBarButton = UIBarButtonItem(customView: regularButton)
+        buttons.append(regularBarButton)
+        //indent
+        buttons.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil))
+
+        bar.items = buttons
+        bar.sizeToFit()
+        textView.inputAccessoryView = bar
     }
 }

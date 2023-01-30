@@ -20,7 +20,6 @@ struct MainScreenModel: ModelProtocol {
     let cellSelectedBackgroundColor: UIColor
 
     let textForEmptyCell: NSAttributedString
-    let cellText: String
 
     let fixedHeaderText: String
     let fixedHeaderFont: UIFont
@@ -63,8 +62,6 @@ struct MainScreenModel: ModelProtocol {
             string: "Empty note",
             attributes: [.font: FontKit.body.font, .foregroundColor: Palette.mainText.color]
         )
-        cellText = ""
-
         fixedHeaderText = "Fixed"
         fixedHeaderFont = FontKit.H1.font
 
@@ -87,7 +84,6 @@ struct MainScreenModel: ModelProtocol {
         model = Model(
             mainBackgroundColor: mainBackgroundColor,
             noteBackground: noteBackground
-
         )
     }
 }

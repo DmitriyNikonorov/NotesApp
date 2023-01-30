@@ -9,20 +9,12 @@ import Foundation
 import UIKit
 import AVFoundation
 
-
 final class MainScreenController: BasicViewController {
-    //TODO: - Temporary
-    private lazy var titlesArray: [NoteModel] = [
-//        NoteModel(text: "Shopping list", lastModifiedDate: "")
-    ]
-
+    // MARK: - Properties
+    private lazy var notesModelArray: [NoteModel] = []
     private lazy var favoriteArray: [NoteModel] = []
 
-    // MARK: - Properties
-    enum NotesState {
-        case normal
-        case edit
-    }
+    private lazy var itemsInRow: CGFloat = 3
 
     private lazy var dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -31,11 +23,17 @@ final class MainScreenController: BasicViewController {
         return dateFormatter
     }()
 
+    enum NotesState {
+        case normal
+        case edit
+    }
+
     private var notesState: NotesState = .normal
     private lazy var selectedNotesCoorinatesArray: [IndexPath] = []
 
     private let vibration: Vibrationable
     private var mainModel: MainScreenModel?
+    private let databaseCoordinator: DatabaseCoordinatable
 
     private lazy var mainView: MainScreenView = {
         let moduleView = MainScreenView(collectionViewDataSource: self, collectionViewDelegate: self)
@@ -43,6 +41,14 @@ final class MainScreenController: BasicViewController {
     }()
 
     // MARK: - Methods
+    override func viewWillTransition(
+        to size: CGSize,
+        with coordinator: UIViewControllerTransitionCoordinator
+    ) {
+        super.viewWillTransition(to: size, with: coordinator)
+        setNumberOfItemsFromOrientation()
+    }
+
     private func setupModel(model: ModelProtocol) {
         guard let newModel = model as? MainScreenModel else { return }
         mainModel = newModel
@@ -52,7 +58,7 @@ final class MainScreenController: BasicViewController {
         guard let model = model else { return }
         view.backgroundColor = model.mainBackgroundColor
         var subModel = model.model
-        subModel.noteCount = UInt(titlesArray.count)
+        subModel.noteCount = UInt(notesModelArray.count)
         mainView.setup(withModel: subModel)
     }
 
@@ -98,6 +104,7 @@ final class MainScreenController: BasicViewController {
         )
         navigationItem.rightBarButtonItem?.tintColor = mainModel.settingButtonImageColor
         title = mainModel.mainTitle
+        navigationController?.navigationBar.barTintColor = .black
     }
 
     private func createToolbar(){
@@ -114,7 +121,7 @@ final class MainScreenController: BasicViewController {
         buttons.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil))
         //title
         let notesCountlabel = UILabel()
-        notesCountlabel.text = getStringForMiddleToolBarItem(from: mainModel, and: titlesArray)
+        notesCountlabel.text = getStringForMiddleToolBarItem(from: mainModel, and: notesModelArray)
         notesCountlabel.font = mainModel.noteCountLabelFont
         buttons.append(UIBarButtonItem(customView: notesCountlabel))
         //indent
@@ -196,14 +203,24 @@ final class MainScreenController: BasicViewController {
         }
     }
 
-    private func createAndOpenNote(at indexPath: IndexPath, from source: CreationSource) {
+    private func reloadToolBar(withModel mainModel: MainScreenModel?) {
+        guard let model = mainModel else { return }
+        guard let item = toolbarItems?[2] else { return }
+        guard let label = item.customView as? UILabel else { return }
+        label.text = getStringForMiddleToolBarItem(from: model, and: notesModelArray)
+        toolBarItemsForDeletion(isShow: false)
+    }
+
+    private func openNote(at indexPath: IndexPath, from source: CreationSource) {
         title = nil
-        let model = titlesArray[indexPath.row]
-//        let currentDate = Date()
-//        let currentDateString = dateFormatter.string(from: currentDate)
+        let model = notesModelArray[indexPath.row]
+        let currentDateString = dateFormatter.string(from: model.lastModifiedDate)
+
         var noteScreenModel = NoteScreenModel()
-        noteScreenModel.time = model.lastModifiedDate
-        noteScreenModel.model.noteText = model.text
+        noteScreenModel.time = currentDateString
+        noteScreenModel.model.noteText = model.textInAttributedString
+        noteScreenModel.index = indexPath.row
+
         if source == .fromMainScreen {
             let noteScreenController = NoteScreenController(
                 creatableDelegaet: self,
@@ -223,20 +240,90 @@ final class MainScreenController: BasicViewController {
         }
     }
 
+    private func createNoteModelAndSaveInDataBase(from source: CreationSource) {
+        var index = 0
+        if notesModelArray.count > 0 {
+            index = notesModelArray.count
+        }
+        let currentDate = Date()
+        let newNote = NoteModel(
+            textInAttributedString: NSAttributedString(),
+            lastModifiedDate: currentDate,
+            index: index
+        )
+
+        databaseCoordinator.create(NoteDataModel.self, keyedValues: newNote.keyedValues) {
+            [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(_):
+                self.notesModelArray.append(newNote)
+                let indexPath = IndexPath(row: self.notesModelArray.count - 1, section: 1)
+                self.mainView.addToCollection([indexPath])
+                self.openNote(at: indexPath, from: source)
+            case .failure(let error):
+                debugPrint(error)
+            }
+        }
+    }
+
+    private func deleteNotesFromDataBase(at index: Int) {
+        let predicate = NSPredicate(format: "index == %@", String(index))
+        databaseCoordinator.delete(NoteDataModel.self, predicate: predicate) { result in
+            switch result {
+            case .success(let data):
+                print(data)
+            case .failure(let error):
+                debugPrint(error)
+            }
+        }
+    }
+
+    private func fetchAllNotesFromDataBase() {
+        databaseCoordinator.fetchAll(NoteDataModel.self) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let dataModelsArray):
+                let notesModelArray = dataModelsArray.map {
+                    NoteModel(noteDataModel: $0)
+                }
+
+                var newNotesArray: [NoteModel] = []
+                notesModelArray.forEach {
+                    if let model = $0 {
+                        newNotesArray.append(model)
+                    }
+                }
+                newNotesArray.forEach { self.notesModelArray.append($0) }
+                self.setupView(self.mainView)
+                self.setupConstraints(ofMainView: self.mainView)
+                self.reloadToolBar(withModel: self.mainModel)
+            case .failure(let error):
+                debugPrint(error)
+            }
+        }
+    }
+
+    private func setNumberOfItemsFromOrientation() {
+        if UIDevice.current.orientation.isLandscape {
+            itemsInRow = 5
+        } else if UIDevice.current.orientation.isPortrait {
+            itemsInRow = 3
+        }
+    }
+
     //MARK: - Objc methods
     @objc private func deleteButtonDidTapped(_ sender: UIBarButtonItem) {
         guard let mainModel = mainModel else { return }
         let newArray = selectedNotesCoorinatesArray.sorted(by: { $0.row > $1.row })
-        newArray.forEach { titlesArray.remove(at: $0.row) }
+        newArray.forEach {
+            notesModelArray.remove(at: $0.row)
+            deleteNotesFromDataBase(at: $0.row)
+        }
         mainView.removeFromCollection(selectedNotesCoorinatesArray)
         selectedNotesCoorinatesArray.forEach { addOrRemoveNotesFromSelected(with: $0) }
-
-        ///reload toolbar
-        guard let item = toolbarItems?[2] else { return }
-        guard let label = item.customView as? UILabel else { return }
-        label.text = getStringForMiddleToolBarItem(from: mainModel, and: titlesArray)
-        vibration.vibrate(state: .selection)
-        toolBarItemsForDeletion(isShow: false)
+        vibration.vibrate(state: .heavy)
+        reloadToolBar(withModel: mainModel)
     }
 
     @objc private func doneButtonDidTapped(_ sender: UIBarButtonItem) {
@@ -247,23 +334,7 @@ final class MainScreenController: BasicViewController {
     }
 
     @objc private func addButtonDidTapped(_ sender: UIBarButtonItem) {
-//        guard let mainModel = mainModel else { return }
-
-        let currentDate = Date()
-        let currentDateString = dateFormatter.string(from: currentDate)
-
-
-        let newNote = NoteModel(text: NSAttributedString(""), lastModifiedDate: currentDateString)
-        titlesArray.append(newNote)
-        let indexPath = IndexPath(row: titlesArray.count - 1, section: 1)
-        mainView.addToCollection([indexPath])
-
-//        guard let item = toolbarItems?[2] else { return }
-//        guard let label = item.customView as? UILabel else { return }
-//        label.text = getStringForMiddleToolBarItem(from: mainModel, and: titlesArray)
-//        vibration.vibrate(state: .selection)
-
-        createAndOpenNote(at: indexPath, from: .fromMainScreen)
+        createNoteModelAndSaveInDataBase(from: .fromMainScreen)
     }
 
     @objc func longPress(longPressGestureRecognizer: UILongPressGestureRecognizer) {
@@ -282,8 +353,9 @@ final class MainScreenController: BasicViewController {
     }
 
     // MARK: - Init
-    init(vibration: Vibrationable, model: ModelProtocol) {
+    init(vibration: Vibrationable, model: ModelProtocol, databaseCoordinator: DatabaseCoordinatable) {
         self.vibration = vibration
+        self.databaseCoordinator = databaseCoordinator
         super.init(model: model)
     }
 
@@ -295,8 +367,7 @@ final class MainScreenController: BasicViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupModel(model: model)
-        setupView(mainView)
-        setupConstraints(ofMainView: mainView)
+        fetchAllNotesFromDataBase()
         setupMainView(model: mainModel)
         setupNavigationBar()
         createToolbar()
@@ -305,6 +376,7 @@ final class MainScreenController: BasicViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setNumberOfItemsFromOrientation()
         setupNavigationBar()
         createToolbar()
     }
@@ -323,7 +395,7 @@ extension MainScreenController: UICollectionViewDataSource {
         if section == 0 {
             return favoriteArray.count
         } else {
-            return titlesArray.count
+            return notesModelArray.count
         }
     }
 
@@ -351,7 +423,7 @@ extension MainScreenController: UICollectionViewDataSource {
 
             cell.setupCell(with: cellModel)
             let data = favoriteArray[indexPath.row]
-            cell.loadDataInCell(title: data.text.description.isEmpty ? mainModel.textForEmptyCell : data.text)
+            cell.loadDataInCell(title: data.textInAttributedString.description.isEmpty ? mainModel.textForEmptyCell : data.textInAttributedString)
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(
@@ -368,8 +440,8 @@ extension MainScreenController: UICollectionViewDataSource {
                 selectedBackgroundColor: mainModel.cellSelectedBackgroundColor
             )
             cell.setupCell(with: cellModel)
-            let noteModel = titlesArray[indexPath.row]
-            cell.loadDataInCell(title: noteModel.text.description.isEmpty ? mainModel.textForEmptyCell : noteModel.text)
+            let noteModel = notesModelArray[indexPath.row]
+            cell.loadDataInCell(title: noteModel.textInAttributedString.description.isEmpty ? mainModel.textForEmptyCell : noteModel.textInAttributedString)
 
             if selectedNotesCoorinatesArray.contains(indexPath) {
                 cell.changeUI(toNormal: false)
@@ -442,7 +514,7 @@ extension MainScreenController: UICollectionViewDataSource {
                 vibration.vibrate(state: .medium)
             }
         case .normal:
-            createAndOpenNote(at: indexPath, from: .fromMainScreen)
+            openNote(at: indexPath, from: .fromMainScreen)
         }
     }
 }
@@ -450,7 +522,6 @@ extension MainScreenController: UICollectionViewDataSource {
 //MARK: - Extention UICollectionViewDelegateFlowLayout
 extension MainScreenController: UICollectionViewDelegateFlowLayout {
     private func itemWidth(for width: CGFloat, spacing: CGFloat) -> CGFloat {
-        let itemsInRow: CGFloat = 3
         let totalSpacing: CGFloat = itemsInRow * spacing + itemsInRow * spacing
         let finalWidth = (width - totalSpacing) / itemsInRow
         return floor(finalWidth)
@@ -498,40 +569,58 @@ extension MainScreenController: UICollectionViewDelegateFlowLayout {
 //MARK: - Extention Creatable
 extension MainScreenController: Creatable {
     func createNewNote() {
-        let currentDate = Date()
-        let currentDateString = dateFormatter.string(from: currentDate)
-        let newNote = NoteModel(text: NSAttributedString(""), lastModifiedDate: currentDateString)
-        titlesArray.append(newNote)
-        let indexPath = IndexPath(row: titlesArray.count - 1, section: 1)
-        mainView.addToCollection([indexPath])
-        createAndOpenNote(at: indexPath, from: .fromNote)
-
-//        let currentDate = Date()
-//        let currentDateString = dateFormatter.string(from: currentDate)
-//        var noteScreenModel = NoteScreenModel()
-//        noteScreenModel.time = currentDateString
-//        let noteScreenController = NoteScreenController(
-//            creatableDelegaet: self,
-//            model: noteScreenModel,
-//            source: .fromNote
-//        )
-//        let newNavigationController = UINavigationController(rootViewController: noteScreenController)
-//        newNavigationController.modalPresentationStyle = .fullScreen
-//        present(newNavigationController, animated: true)
-
-
-        
-
-        //        navigationController?.pushViewController(noteScreenController, animated: false)
-//        guard let item = toolbarItems?[2] else { return }
-//        guard let label = item.customView as? UILabel else { return }
-//        label.text = getStringForMiddleToolBarItem(from: mainModel, and: titlesArray)
-//        vibration.vibrate(state: .selection)
+        createNoteModelAndSaveInDataBase(from: .fromNote)
     }
 
     func getNewTime() -> String {
         let currentDate = Date()
         let currentDateString = dateFormatter.string(from: currentDate)
         return currentDateString
+    }
+
+    func saveChanges(withString string: NSAttributedString, and index: Int) {
+        let predicate = NSPredicate(format: "index == %@", String(index))
+
+        var stringData = Data()
+        do {
+            let data = try NSKeyedArchiver.archivedData(
+                withRootObject: string,
+                requiringSecureCoding: false
+            )
+            stringData = data
+        } catch {
+            debugPrint("error encoding")
+        }
+        
+        let date = Date()
+        let keyedValues: [String: Any] = ["text": stringData, "date": date]
+        databaseCoordinator.update(
+            NoteDataModel.self,
+            predicate: predicate,
+            keyedValues: keyedValues
+        ) {
+            [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let dataModelsArray):
+                let notesModelArray = dataModelsArray.map {
+                    NoteModel(noteDataModel: $0)
+                }
+
+                var newNotesArray: [NoteModel] = []
+                notesModelArray.forEach {
+                    if let model = $0 {
+                        newNotesArray.append(model)
+                    }
+                }
+                newNotesArray.forEach {
+                    self.notesModelArray[$0.index] = $0
+                }
+                let indexPath = IndexPath(item: newNotesArray[0].index, section: 1)
+                self.mainView.reloadItem([indexPath])
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }

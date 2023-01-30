@@ -22,7 +22,7 @@ struct NoteScreenModel: ModelProtocol {
     let titleFont: UIFont
 
     var time: String?
-//    var noteText: NSAttributedString?
+    var index: Int?
 
     let regularFont: UIFont
     let italicFont: UIFont
@@ -31,6 +31,15 @@ struct NoteScreenModel: ModelProtocol {
     struct Model: ModelProtocol {
         let textViewFont: UIFont
         var noteText: NSAttributedString?
+
+        let boldButtonText: String
+        let boldButtonAttributes: [NSAttributedString.Key : Any]
+
+        let italicButtonText: String
+        let italicButtonAttributes: [NSAttributedString.Key : Any]
+
+        let regularButtonText: String
+        let regularButtonAttributes: [NSAttributedString.Key : Any]
     }
 
     var model: Model
@@ -51,7 +60,16 @@ struct NoteScreenModel: ModelProtocol {
         boldFont = FontKit.boldNoteText.font
         
         model = Model(
-            textViewFont: FontKit.body.font
+            textViewFont: FontKit.body.font,
+            boldButtonText: "Bold",
+            boldButtonAttributes:
+                [.font: FontKit.boldNoteText.font, .foregroundColor: Palette.mainText.color],
+            italicButtonText: "Italic",
+            italicButtonAttributes:
+                [.font: FontKit.italicNoteText.font, .foregroundColor: Palette.mainText.color],
+            regularButtonText: "Regular",
+            regularButtonAttributes:
+                [.font: FontKit.regularNoteText.font, .foregroundColor: Palette.mainText.color]
         )
     }
 }
