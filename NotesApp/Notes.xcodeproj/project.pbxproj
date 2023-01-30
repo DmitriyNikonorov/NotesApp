@@ -13,6 +13,11 @@
 		5A2BC6CE2982BA7C0041950D /* NoteScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2BC6CD2982BA7C0041950D /* NoteScreenView.swift */; };
 		5A3E01232986E03A00184021 /* Rubik-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A3E01222986E03A00184021 /* Rubik-Italic.ttf */; };
 		5A3E01252986E04500184021 /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5A3E01242986E04500184021 /* Rubik-Bold.ttf */; };
+		5A9FBBAC2987998B004E5010 /* Creatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FBBAB2987998B004E5010 /* Creatable.swift */; };
+		5A9FBBAF2987B6B5004E5010 /* Database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FBBAD2987B6B5004E5010 /* Database.xcdatamodeld */; };
+		5A9FBBB22987B708004E5010 /* DatabaseCoordinatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FBBB12987B708004E5010 /* DatabaseCoordinatable.swift */; };
+		5A9FBBB42987B73C004E5010 /* CoreDataCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FBBB32987B73C004E5010 /* CoreDataCoordinator.swift */; };
+		5A9FBBB62987D11B004E5010 /* Storable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9FBBB52987D11B004E5010 /* Storable.swift */; };
 		5AB9D9E12983D64C00DCFAB6 /* NoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB9D9E02983D64C00DCFAB6 /* NoteModel.swift */; };
 		5AB9D9E42983F04100DCFAB6 /* VibravionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB9D9E32983F04100DCFAB6 /* VibravionService.swift */; };
 		5AB9D9E6298408A200DCFAB6 /* Selectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB9D9E5298408A200DCFAB6 /* Selectable.swift */; };
@@ -43,6 +48,11 @@
 		5A2BC6CD2982BA7C0041950D /* NoteScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteScreenView.swift; sourceTree = "<group>"; };
 		5A3E01222986E03A00184021 /* Rubik-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Italic.ttf"; sourceTree = "<group>"; };
 		5A3E01242986E04500184021 /* Rubik-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Bold.ttf"; sourceTree = "<group>"; };
+		5A9FBBAB2987998B004E5010 /* Creatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Creatable.swift; sourceTree = "<group>"; };
+		5A9FBBAE2987B6B5004E5010 /* Database.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Database.xcdatamodel; sourceTree = "<group>"; };
+		5A9FBBB12987B708004E5010 /* DatabaseCoordinatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseCoordinatable.swift; sourceTree = "<group>"; };
+		5A9FBBB32987B73C004E5010 /* CoreDataCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataCoordinator.swift; sourceTree = "<group>"; };
+		5A9FBBB52987D11B004E5010 /* Storable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storable.swift; sourceTree = "<group>"; };
 		5AB9D9E02983D64C00DCFAB6 /* NoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteModel.swift; sourceTree = "<group>"; };
 		5AB9D9E32983F04100DCFAB6 /* VibravionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibravionService.swift; sourceTree = "<group>"; };
 		5AB9D9E5298408A200DCFAB6 /* Selectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selectable.swift; sourceTree = "<group>"; };
@@ -101,6 +111,16 @@
 				5A2BC6CD2982BA7C0041950D /* NoteScreenView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		5A9FBBB02987B6FD004E5010 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				5A9FBBB12987B708004E5010 /* DatabaseCoordinatable.swift */,
+				5A9FBBB32987B73C004E5010 /* CoreDataCoordinator.swift */,
+				5A9FBBB52987D11B004E5010 /* Storable.swift */,
+			);
+			path = Database;
 			sourceTree = "<group>";
 		};
 		5AB9D9E22983F02B00DCFAB6 /* VibrationService */ = {
@@ -175,6 +195,7 @@
 		5ABA5E0329812D4500E24E68 /* CoreLayer */ = {
 			isa = PBXGroup;
 			children = (
+				5A9FBBB02987B6FD004E5010 /* Database */,
 				5AB9D9E22983F02B00DCFAB6 /* VibrationService */,
 				5A2BC6C82982B1E80041950D /* BasicComponents */,
 				5ABA5E1B298176B200E24E68 /* Models */,
@@ -232,6 +253,7 @@
 			children = (
 				5ABA5E0E2981346B00E24E68 /* ModelProtocol.swift */,
 				5AB9D9E5298408A200DCFAB6 /* Selectable.swift */,
+				5A9FBBAB2987998B004E5010 /* Creatable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -249,6 +271,7 @@
 			children = (
 				5ABA5E1C298176BF00E24E68 /* CellModel.swift */,
 				5AB9D9E02983D64C00DCFAB6 /* NoteModel.swift */,
+				5A9FBBAD2987B6B5004E5010 /* Database.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -356,7 +379,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A9FBBB42987B73C004E5010 /* CoreDataCoordinator.swift in Sources */,
 				5A2BC6CB2982B20E0041950D /* BasicViewController.swift in Sources */,
+				5A9FBBAC2987998B004E5010 /* Creatable.swift in Sources */,
+				5A9FBBB22987B708004E5010 /* DatabaseCoordinatable.swift in Sources */,
 				5ABA5E1D298176BF00E24E68 /* CellModel.swift in Sources */,
 				5ABA5DF129812A8300E24E68 /* MainScreenController.swift in Sources */,
 				5ABA5E112981348F00E24E68 /* MainScreenModel.swift in Sources */,
@@ -364,9 +390,11 @@
 				5ABA5E1F29824F5B00E24E68 /* FontKit.swift in Sources */,
 				5AB9D9E6298408A200DCFAB6 /* Selectable.swift in Sources */,
 				5ABA5E2629825FB200E24E68 /* HeaderCollectionView.swift in Sources */,
+				5A9FBBB62987D11B004E5010 /* Storable.swift in Sources */,
 				5ABA5E0F2981346B00E24E68 /* ModelProtocol.swift in Sources */,
 				5ABA5E2A2982690700E24E68 /* Images.swift in Sources */,
 				5AB9D9E12983D64C00DCFAB6 /* NoteModel.swift in Sources */,
+				5A9FBBAF2987B6B5004E5010 /* Database.xcdatamodeld in Sources */,
 				5ABA5E0529812DFB00E24E68 /* Palette.swift in Sources */,
 				5ABA5E0829812E4D00E24E68 /* Extentions.swift in Sources */,
 				5ABA5DED29812A8300E24E68 /* AppDelegate.swift in Sources */,
@@ -584,6 +612,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5A9FBBAD2987B6B5004E5010 /* Database.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5A9FBBAE2987B6B5004E5010 /* Database.xcdatamodel */,
+			);
+			currentVersion = 5A9FBBAE2987B6B5004E5010 /* Database.xcdatamodel */;
+			path = Database.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5ABA5DE129812A8300E24E68 /* Project object */;
 }

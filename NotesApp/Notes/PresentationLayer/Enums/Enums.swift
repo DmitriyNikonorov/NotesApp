@@ -19,7 +19,11 @@ enum Constants {
     static let insets: CGFloat = 12.0
 }
 
-
 enum NoteFonts: Int {
     case regular, italic, bold
+}
+
+enum CreationSource {
+    case fromMainScreen
+    case fromNote
 }

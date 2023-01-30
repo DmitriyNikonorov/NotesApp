@@ -9,5 +9,4 @@ import Foundation
 
 protocol Selectable {
     func changeUI(toNormal isNormal: Bool)
-//    func changeUI()
 }

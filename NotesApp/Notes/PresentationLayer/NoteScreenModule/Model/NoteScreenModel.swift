@@ -22,6 +22,7 @@ struct NoteScreenModel: ModelProtocol {
     let titleFont: UIFont
 
     var time: String?
+    var index: Int?
 
     let regularFont: UIFont
     let italicFont: UIFont
@@ -29,9 +30,19 @@ struct NoteScreenModel: ModelProtocol {
 
     struct Model: ModelProtocol {
         let textViewFont: UIFont
+        var noteText: NSAttributedString?
+
+        let boldButtonText: String
+        let boldButtonAttributes: [NSAttributedString.Key : Any]
+
+        let italicButtonText: String
+        let italicButtonAttributes: [NSAttributedString.Key : Any]
+
+        let regularButtonText: String
+        let regularButtonAttributes: [NSAttributedString.Key : Any]
     }
 
-    let model: Model
+    var model: Model
 
     init() {
         noteBackgroundColor = Palette.noteBackground.color
@@ -44,12 +55,21 @@ struct NoteScreenModel: ModelProtocol {
         toolBarImageColor = Palette.systemElement.color
         titleColor = Palette.subtext.color
         titleFont = FontKit.underlineBody.font
-        regularFont = FontKit.regular.font
-        italicFont = FontKit.italic.font
-        boldFont = FontKit.bold.font
+        regularFont = FontKit.regularNoteText.font
+        italicFont = FontKit.italicNoteText.font
+        boldFont = FontKit.boldNoteText.font
         
         model = Model(
-            textViewFont: FontKit.textBody.font
+            textViewFont: FontKit.body.font,
+            boldButtonText: "Bold",
+            boldButtonAttributes:
+                [.font: FontKit.boldNoteText.font, .foregroundColor: Palette.mainText.color],
+            italicButtonText: "Italic",
+            italicButtonAttributes:
+                [.font: FontKit.italicNoteText.font, .foregroundColor: Palette.mainText.color],
+            regularButtonText: "Regular",
+            regularButtonAttributes:
+                [.font: FontKit.regularNoteText.font, .foregroundColor: Palette.mainText.color]
         )
     }
 }
