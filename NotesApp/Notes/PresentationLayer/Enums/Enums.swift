@@ -26,4 +26,5 @@ enum NoteFonts: Int {
 enum CreationSource {
     case fromMainScreen
     case fromNote
+    case fromMainScreenWithouOpen
 }

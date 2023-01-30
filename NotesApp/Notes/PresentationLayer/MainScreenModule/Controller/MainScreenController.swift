@@ -260,7 +260,11 @@ final class MainScreenController: BasicViewController {
                 self.notesModelArray.append(newNote)
                 let indexPath = IndexPath(row: self.notesModelArray.count - 1, section: 1)
                 self.mainView.addToCollection([indexPath])
-                self.openNote(at: indexPath, from: source)
+                if source == .fromNote || source == .fromMainScreen {
+                    self.openNote(at: indexPath, from: source)
+                } else {
+                    self.reloadToolBar(withModel: self.mainModel)
+                }
             case .failure(let error):
                 debugPrint(error)
             }
@@ -284,6 +288,11 @@ final class MainScreenController: BasicViewController {
             guard let self = self else { return }
             switch result {
             case .success(let dataModelsArray):
+                print(dataModelsArray.count)
+                if dataModelsArray.count == 0 {
+                    self.createNoteModelAndSaveInDataBase(from: .fromMainScreenWithouOpen)
+                }
+
                 let notesModelArray = dataModelsArray.map {
                     NoteModel(noteDataModel: $0)
                 }
