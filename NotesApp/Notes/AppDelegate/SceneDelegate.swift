@@ -16,9 +16,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
 
         window = UIWindow(windowScene: scene)
-        let viewController = ViewController()
+        let model = MainScreenModel()
+        let viewController = MainScreenController(model: model)
 
-        window?.rootViewController = viewController
+        let navigationController = UINavigationController(rootViewController: viewController)
+
+
+//        let navigationAppearance = UINavigationBarAppearance()
+//        navigationAppearance.backgroundColor = .purple
+//
+//        let standartAppearance = UINavigationBarAppearance()
+//        standartAppearance.backgroundColor = .blue
+//        navigationController.navigationBar.scrollEdgeAppearance = navigationAppearance
+//        navigationController.navigationBar.standardAppearance = standartAppearance
+//        navigationController.navigationBar.prefersLargeTitles = true
+
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 
