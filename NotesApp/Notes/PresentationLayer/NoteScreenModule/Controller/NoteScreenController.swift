@@ -107,6 +107,7 @@ final class NoteScreenController: BasicViewController {
         guard let mainModel = mainModel else {
             return
         }
+        textAttribute[.foregroundColor] = mainModel.noteTextColor
         switch font {
         case .regular:
             textAttribute[.font] = mainModel.regularFont

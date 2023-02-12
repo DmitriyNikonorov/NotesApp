@@ -17,6 +17,7 @@ struct NoteScreenModel: ModelProtocol {
     let addButtonImage: UIImage
     let editButtonImage: UIImage
     let toolBarImageColor: UIColor
+    let noteTextColor: UIColor
 
     let titleColor: UIColor
     let titleFont: UIFont
@@ -53,6 +54,7 @@ struct NoteScreenModel: ModelProtocol {
         addButtonImage = Images.add.image
         editButtonImage = Images.edit.image
         toolBarImageColor = Palette.systemElement.color
+        noteTextColor = Palette.mainText.color
         titleColor = Palette.subtext.color
         titleFont = FontKit.underlineBody.font
         regularFont = FontKit.regularNoteText.font
